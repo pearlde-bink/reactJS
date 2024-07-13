@@ -49,7 +49,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -68,11 +68,12 @@ function Header() {
 
 function Pizza({ pizzaObj }) {
   return (
-    <div className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""} `}>
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""} `}>
       <img src={pizzaObj.photoName} alt="pizzaPhoto" />
       <h2>{pizzaObj.name}</h2>
       <p>{pizzaObj.ingredients}</p>
-    </div>
+      <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
+    </li>
   );
 }
 
@@ -89,24 +90,25 @@ function Menu() {
             Authentic Italian cuisine. 6 creative dishes to choose from. All
             from our stone oven, all organic, all delicious.
           </p>
-          <div>
+          <ul className="pizzas">
             {pizzas.map((pizza) => {
               return <Pizza key={pizza.name} pizzaObj={pizza} />;
             })}
-          </div>
+          </ul>
         </>
       ) : (
-        <p>No pizzas available</p>
+        <p>We're still working on our menu. Please come back later :)</p>
       )}
     </main>
   );
 }
 
 function Footer() {
-  const hour = new Date().getHours;
+  const hour = new Date().getHours();
   const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
+  console.log("isOpen: ", isOpen);
 
   return (
     <footer className="footer">
